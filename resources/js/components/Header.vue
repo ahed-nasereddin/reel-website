@@ -25,12 +25,13 @@ const open = ref(false)
   
  <template>
   <header class=" bg-transparent border-b-2 border-primary text-white min-h-  p-4 flex justify-between items-center relative z-50">
-        <div
-      
-      class="2xl:text-4xl xl:text-3xl md:text-2xl font-extrabold text-center   text-primary"
-    >
-      ReelQuip Films
-    </div>
+      <div class="flex justify-center mb-6">
+  <img 
+    src="/images/logo.png" 
+    alt="ReelQuip Films Logo" 
+    class="h-16 w-auto object-contain"
+  />
+</div>
 
 
     <!-- Desktop Nav -->

@@ -1,18 +1,22 @@
 <template>
-  <section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-12">Latest Projects</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        
-          <ProjectCard
-          v-for="project in latestProjects"
-          :key="project.id"
-          :project="project"
-        />
-      
-      </div>
+  <section class="py-16 bg-gradient-to-b from-white via-primary/5 to-white">
+  <div class="container mx-auto px-6">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+      Latest Projects
+    </h2>
+
+    <!-- Project Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <ProjectCard
+        v-for="project in latestProjects"
+        :key="project.id"
+        :project="project"
+      />
     </div>
-  </section>
+  </div>
+</section>
+
 </template>
 
 <script setup lang="ts">

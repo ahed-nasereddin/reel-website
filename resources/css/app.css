@@ -2,10 +2,10 @@
 
 @theme {
 
-  --color-primary: #1a202c;
-  --color-secondary: #00ff88;
-  --color-background:#1a1a1a;
-  --color-light:#f0f0f0 ;
-  --color-dark:#009e57;
-  --color-accent:#007344;
+  --color-primary: #14B8B8;
+  --color-secondary: #000000;
+   --color-background: #FFFFFF; /* General page background */
+  --color-light: #14B8B8;      /* Light elements, buttons, highlights */
+  --color-dark: #000000;
+  --color-accent:#FFFFFF;
 }

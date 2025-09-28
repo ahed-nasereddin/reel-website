@@ -41,7 +41,7 @@
         :key="index"
         @click="goToSlide(index)"
         class="w-3 h-3 rounded-full transition-all"
-        :class="currentSlide === index ? 'bg-red-500 scale-125' : 'bg-white/70 hover:bg-white'"
+        :class="currentSlide === index ? 'bg-primary scale-125' : 'bg-white/70 hover:bg-white'"
       />
     </div>
   </div>
