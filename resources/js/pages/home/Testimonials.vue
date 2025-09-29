@@ -7,23 +7,20 @@
       </h2>
 
       <!-- Swiper Slider -->
-      <swiper
-        :modules="[Pagination, Autoplay, EffectCoverflow]"
-        :pagination="{ clickable: true }"
-        :autoplay="{ delay: 4000 }"
-        :loop="true"
-        :slides-per-view="3"
-        :centered-slides="false"
-        :space-between="30"
-        :coverflow-effect="{
-          rotate: 0,
-          stretch: 200,
-          depth: 400,
-          modifier: 1,
-          slideShadows: true
-        }"
-        class="w-full"
-      >
+     <swiper
+      class="swiper"
+        :modules="[Pagination, Autoplay]"
+
+  :autoplay="{ delay: 4000 }"
+  :loop="true"
+      :space-between="30"
+    slides-per-view="auto"
+    :centered-slides="false"
+    :pagination="{ clickable: true }"
+    >
+
+   
+
         <swiper-slide v-for="(testimonial, i) in testimonials" :key="i" class="max-w-md px-4">
           <div
             class="shadow-lg border border-primary rounded-2xl p-0 flex flex-col items-center text-center transition-transform transform hover:-translate-y-2 hover:shadow-xl">
@@ -42,7 +39,8 @@
             </div>
           </div>
         </swiper-slide>
-              <div class="custom-pagination mt-12"></div>
+         <div class="custom-pagination mt-12"></div>
+
 
       </swiper>
 
@@ -102,6 +100,9 @@ import { Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
+import { defineComponent } from 'vue'
+  import 'swiper/css'
+  import 'swiper/css/pagination'
 
 import { ref, onMounted } from "vue";
 import axios from "axios";
@@ -111,20 +112,20 @@ import "vue3-toastify/dist/index.css";
 const testimonials = ref<Testimonial[]>([]);
 const showModal = ref(false);
 
-const breakpoints = {
-  0: {
-    slidesPerView: 1.1, // mobile: show ~1 slide
-    centeredSlides: false,
-  },
-  640: {
-    slidesPerView: "auto", // small tablets
-    centeredSlides: false,
-  },
-  768: {
-    slidesPerView: "auto", // desktop
-    centeredSlides: true,
-  },
-};
+defineComponent({
+    name: 'swiper-example-3d-coverflow',
+    title: '3D Coverflow effect',
+    url: import.meta.url,
+    components: {
+      Swiper,
+      SwiperSlide
+    },
+    setup() {
+      return {
+        modules: [Pagination,Autoplay, EffectCoverflow]
+      }
+    }
+  })
 
 const fetchTestimonials = async () => {
   const res = await axios.get("/api/testimonials");

@@ -1,12 +1,28 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted,onUnmounted, onBeforeUnmount } from 'vue'
 import { Motion } from 'motion-v'
+
+
+const isScrolled = ref(false);
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50; // trigger after 50px scroll
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 // import { createRouter } from 'vue-router'
 function onEscKey(event: KeyboardEvent) {
   if (event.key === 'Escape') {
     open.value = false
   }
 }
+
 
 const navItems = [
   
@@ -24,8 +40,12 @@ const open = ref(false)
 
   
  <template>
-  <header class=" bg-transparent border-b-2 border-primary text-white min-h-  p-4 flex justify-between items-center relative z-50">
-      <div class="flex justify-center mb-6">
+<header
+  :class="[
+    'fixed top-0 left-0 w-full p-2 flex justify-between items-center z-50 transition-colors duration-300',
+    isScrolled ? 'bg-white text-gray-900 shadow-md border-b-2 border-primary' : 'bg-transparent text-white'
+  ]"
+>      <div class="flex justify-center mb-6">
   <img 
     src="/images/logo.png" 
     alt="ReelQuip Films Logo" 
@@ -35,7 +55,7 @@ const open = ref(false)
 
 
     <!-- Desktop Nav -->
-    <nav class="hidden md:flex space-x-6">
+    <nav class="hidden  md:flex space-x-6">
   <Motion
   v-for="(item, index) in navItems"
   :key="index"
@@ -44,8 +64,12 @@ const open = ref(false)
 >
   <router-link
     :to="item.to"
-    :class="{ 'bg-primary text-white rounded-xl': $route.path === item.to }"
-class="block text-primary hover:bg-primary hover:text-white hover:scale-105 p-2 hover:font-bold hover:rounded-xl cursor-pointer transition-all"
+    
+:class="['block  hover:scale-105 p-2 hover:font-bold hover:rounded-xl cursor-pointer transition-all',
+$route.path === item.to?'bg-primary text-white rounded-xl': '',
+isScrolled?'text-primary hover:bg-primary hover:text-white':'text-white',
+
+]"
 >
     {{ item.label }}
   </router-link>
@@ -56,7 +80,7 @@ class="block text-primary hover:bg-primary hover:text-white hover:scale-105 p-2 
       @click="open = !open"
       aria-label="Toggle menu"
       :aria-expanded="open"
-      class="md:hidden bg-primary focus:outline-none"
+      class="md:hidden bg-primary rounded-lg p-2 focus:outline-none"
     >
       <svg v-if="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
         viewBox="0 0 24 24" stroke="currentColor">
@@ -115,6 +139,7 @@ class="block text-primary hover:bg-primary hover:text-white hover:scale-105 p-2 
   </header>
 
 </template>
+
 <style>
     .slide-fade-enter-active,
 .slide-fade-leave-active {
