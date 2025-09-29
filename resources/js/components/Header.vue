@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted,onUnmounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted,onUnmounted,computed, onBeforeUnmount } from 'vue'
 import { Motion } from 'motion-v'
+import { useRoute } from "vue-router";
 
 
 const isScrolled = ref(false);
@@ -16,6 +17,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+const route = useRoute();
+
+const isHome = computed(() => route.path === "/");
+
 // import { createRouter } from 'vue-router'
 function onEscKey(event: KeyboardEvent) {
   if (event.key === 'Escape') {
@@ -40,12 +45,19 @@ const open = ref(false)
 
   
  <template>
-<header
+  <header
   :class="[
-    'fixed top-0 left-0 w-full p-2 flex justify-between items-center z-50 transition-colors duration-300',
-    isScrolled ? 'bg-white text-gray-900 shadow-md border-b-2 border-primary' : 'bg-transparent text-white'
+    // Base: different for home vs other pages
+    isHome 
+      ? 'absolute  text-white w-full top-0 left-0 p-2 flex justify-between items-center z-50 transition-colors duration-300' 
+      : 'fixed z-10 bg-gradient-to-t  from-secondary  to-primary flex justify-between items-center px-2 mb-2 w-full text-secondary border-b-2 border-primary shadow-md',
+
+    // Scroll effect: only when on home
+    isHome && isScrolled ? 'bg-gradient-to-t from-secondary via-primary to-primary fixed text-secondary shadow-md ' : ''
   ]"
->      <div class="flex justify-center mb-6">
+>
+     
+   <div class="flex justify-center mb-6">
   <img 
     src="/images/logo.png" 
     alt="ReelQuip Films Logo" 
@@ -65,10 +77,14 @@ const open = ref(false)
   <router-link
     :to="item.to"
     
-:class="['block  hover:scale-105 p-2 hover:font-bold hover:rounded-xl cursor-pointer transition-all',
-$route.path === item.to?'bg-primary text-white rounded-xl': '',
-isScrolled?'text-primary hover:bg-primary hover:text-white':'text-white',
-
+:class="[
+  'block hover:scale-105 p-2 font-bold hover:font-bold text-accent hover:bg-accent hover:text-primary hover:rounded-xl cursor-pointer transition-all',
+  { 
+    'bg-accent text-primary rounded-xl': $route.path === item.to,
+    'text-accent hover:bg-accent hover:text-primary': isScrolled && isHome,
+    
+    
+  }
 ]"
 >
     {{ item.label }}

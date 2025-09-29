@@ -1,5 +1,5 @@
 <template>
-<section class="py-16 bg-gradient-to-t from-white via-primary/5 to-white" aria-labelledby="services-heading">
+<section class="py-16 bg-gradient-to-b from-accent via-accent to-secondary" aria-labelledby="services-heading">
   <div class="container mx-auto px-6">
     <!-- Section Title -->
     <h2 id="services-heading" class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">

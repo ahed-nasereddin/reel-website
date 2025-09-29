@@ -1,12 +1,12 @@
 <template>
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 mt-10 ">
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-8">
                 Request a Quotation
             </h2>
             <form
                 @submit.prevent="submitQuotation"
-                class="bg-white rounded-xl shadow-md p-8 space-y-6"
+                class="bg-gradient-to-l from-primary/10 via-primary/10 to-primary-20 rounded-xl shadow-md p-8 space-y-6"
             >
                 <!-- User Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -117,7 +117,7 @@
                     <button
                         type="button"
                         @click="addEquipment"
-                        class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/80 transition"
+                        class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary/80 transition"
                     >
                         + Add Equipment
                     </button>
@@ -140,7 +140,7 @@
                 <button
                     type="submit"
                     :disabled="submit"
-                    class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition w-full"
+                    class=" text-primary border border-primary hover:text-white px-6 py-3 rounded-md hover:bg-primary/90 transition w-auto"
                 >
                     <span v-if="!submit">Submit Quotation</span>
                     <span v-else>submiting..</span>

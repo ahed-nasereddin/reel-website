@@ -1,5 +1,5 @@
 <template>
-  <section class="py-12 bg-gray-50">
+  <section class="py-12 mt-20 bg-gray-50">
     <div class="container mx-auto px-6 grid md:grid-cols-2 gap-8">
       <!-- Map -->
       <div class="w-full h-80 rounded-2xl overflow-hidden shadow" v-if="contact">

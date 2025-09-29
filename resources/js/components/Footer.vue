@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-white text-primary py-8">
+  <footer class=" bg-gradient-to-b from-secondary to-primary text-accent font-bold border-t-1 border-secondary py-4">
     <div class="max-w-7xl mx-auto px-6 grid items-center justify-center">
       
       <!-- Copyright -->

@@ -5,7 +5,7 @@
      <Header/>
 
     <!-- Main content -->
-    <main class="flex-1   pb-2">
+    <main class="flex-1">
       <router-view />
     </main>
 

@@ -24,7 +24,7 @@
         <swiper-slide v-for="(testimonial, i) in testimonials" :key="i" class="max-w-md px-4">
           <div
             class="shadow-lg border border-primary rounded-2xl p-0 flex flex-col items-center text-center transition-transform transform hover:-translate-y-2 hover:shadow-xl">
-            <p class="text-secondary/70 font-bold bg-primary/10 min-h-20 rounded-t-2xl italic mb-1 leading-relaxed p-4 w-full"
+            <p class="text-accent  font-bold bg-primary min-h-20 rounded-t-2xl italic mb-1 leading-relaxed p-4 w-full"
               v-html="testimonial.content"></p>
 
             <div>
