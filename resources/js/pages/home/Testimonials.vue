@@ -45,13 +45,13 @@
       </swiper>
 
       <!-- Add Testimonial Button -->
-      <div class="mt-8 flex justify-center">
+      <!-- <div class="mt-8 flex justify-center">
         <button
           class="border border-primary text-primary font-semibold px-8 py-3 rounded-2xl hover:bg-primary hover:text-accent transition duration-300"
           @click="showModal = true">
           Add Testimonial
         </button>
-      </div>
+      </div> -->
 
       <!-- Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50 px-4">

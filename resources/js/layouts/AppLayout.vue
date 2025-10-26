@@ -5,7 +5,7 @@
      <Header/>
 
     <!-- Main content -->
-    <main class="flex-1">
+    <main class="flex-1 bg-gradient-to-t from-accent via-accent to-primary/50">
       <router-view />
     </main>
 

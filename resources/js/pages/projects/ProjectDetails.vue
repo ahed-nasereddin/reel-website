@@ -1,5 +1,5 @@
 <template>
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-gradient-to-t from-primary/30 via-accent to-primary/30">
     <div v-if="project" class="container mx-auto px-6">
       <!-- Back button -->
       <button 

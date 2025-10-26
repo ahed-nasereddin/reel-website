@@ -1,14 +1,14 @@
 <template>
-  <footer class=" bg-gradient-to-b from-secondary to-primary text-accent font-bold border-t-1 border-secondary py-4">
+  <footer class=" bg-white text-secondary  font-bold border-t-2 border-primary py-4">
     <div class="max-w-7xl mx-auto px-6 grid items-center justify-center">
       
       <!-- Copyright -->
       <p class="text-sm mb-4 md:mb-0">
-        &copy; 2025 My Website. All rights reserved.
+        &copy; 2025 <span class="text-md">ReelQuip Films</span>. All rights reserved.
       </p>
 
       <!-- Social Media Icons -->
-      <div class="flex justify-center items-center my-2 gap-4">
+      <div class="flex justify-center text-secondary items-center my-2 gap-4">
         <a 
           v-if="contact?.facebook" 
           :href="contact.facebook" 

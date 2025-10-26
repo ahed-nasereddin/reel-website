@@ -15,7 +15,7 @@ const routes = [
       { path: '/projects', name: 'Projects', component: Projects },
       { path: 'makequotation', name: 'make-qutation', component: MakeQuotation },
       {
-      path: '/project/:slug',
+      path: '/projects/:slug',
       name: 'project-details',
       component: ProjectDetails,
       props: true, // passes :id as a prop to the component

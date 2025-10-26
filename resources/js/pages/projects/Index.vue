@@ -1,9 +1,9 @@
 <template>
-  <section class="py-10 bg-primary/1  mt-14 min-h-screen   ">
+  <section class="py-10 bg-primary/1  mt-24 min-h-screen   ">
     <div class="container mx-auto px-6">
       <!-- Title -->
-      <h2 class="text-3xl font-bold mb-6">Projects</h2>
-
+<div class="flex justify-center items-center">      <h2 class="text-3xl font-bold mb-6">Projects</h2>
+</div>
       <!-- Grid of projects -->
       <div
         v-if="projects.length"
@@ -17,7 +17,14 @@
       </div>
 
       <!-- No projects -->
-      <p v-else class="text-gray-500">No projects found.</p>
+      <div v-else class="text-gray-500">
+        <span v-if="loading">
+          Loading..
+        </span>
+        <span v-else>
+          No projects found.
+        </span>
+      </div>
 
       <!-- Pagination -->
       <div v-if="meta.total > meta.per_page" class="flex justify-center items-center gap-2 mt-8">
@@ -65,14 +72,18 @@ const meta = ref({
   per_page: 9,
   total: 0,
 });
-
+const loading=ref<boolean>(false)
 const fetchProjects = async (page = 1) => {
+  loading.value=true;
   try {
     const res = await axios.get(`/api/projects?page=${page}`);
     projects.value = res.data.data;
     meta.value = res.data.meta;
   } catch (error) {
     console.error("Error fetching projects:", error);
+  }
+  finally{
+    loading.value=true;
   }
 };
 

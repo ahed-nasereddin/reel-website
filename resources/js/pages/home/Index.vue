@@ -21,19 +21,44 @@ import Testimonials from './Testimonials.vue';
 import About from './About.vue';
 import OurTeam from './OurTeam.vue';
 import CTA from './CTA.vue';
+import { useHead } from "@vueuse/head";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 import  { Slider,Service,ProjectPreview,TeamMember, Contact } from "@/types";
 import WhatsappButton from '@/components/WhatsappButton.vue';
 
+
+const homeContent = ref({
+  title: "ReelQuip Films",
+  description: "Professional lighting and camera services for your projects.",
+  image: "storage/images/about-us.jpg",
+});
 const sliders = ref<Slider[]>([]);
 const services = ref<Service[]>([]);
 const latestProjects=ref<ProjectPreview[]>([]);
 const teamMembers = ref<TeamMember[]>([]);
 const contact=ref<Contact>();
 // const testimonials = ref([]);
+// Watch the homeContent (in case it is fetched asynchronously)
 
+function setMetaTags(){
+  useHead({
+    title: homeContent.value.title,
+    meta: [
+      { name: "description", content: homeContent.value.description?.substring(0, 160) || "" },
+      { property: "og:title", content: homeContent.value.title },
+      { property: "og:description", content: homeContent.value.description?.substring(0, 160) || "" },
+      { property: "og:image", content: homeContent.value.image || "/logo.jpg" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: window.location.href },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: homeContent.value.title },
+      { name: "twitter:description", content: homeContent.value.description?.substring(0, 160) || "" },
+      { name: "twitter:image", content: homeContent.value.image || "/logo.jpg" },
+    ],
+  });
+}
 onMounted(async () => {
   try {
     const sliderCacheKey = "sliders_cache";
@@ -62,6 +87,8 @@ onMounted(async () => {
   } catch (error) {
     console.error("Error fetching home page data:", error);
   }
+
+  setMetaTags();
 });
 
 </script>
