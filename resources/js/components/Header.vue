@@ -60,8 +60,13 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onEscKey));
         ]"
     >
         <div class="flex justify-center ">
-            <img
-                src="/images/logo.png"
+            <img v-if="isHome && !isScrolled"
+                src="/images/logo-white.png"
+                alt="ReelQuip Films Logo"
+                class="h-32  w-auto object-contain"
+            />
+            <img v-else
+                src="/images/logo-black.png"
                 alt="ReelQuip Films Logo"
                 class="h-28  w-auto object-contain"
             />

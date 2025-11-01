@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('app');
 });
 
+Route::get('/{any}', function () {
+    return view('app'); // your main Blade file that loads Vue
+})->where('any', '.*');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

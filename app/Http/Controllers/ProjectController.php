@@ -29,16 +29,16 @@ class ProjectController extends Controller
     }
 
 
-    public function show($slug){
-       
-        $project = Project::where('slug',$slug)->first();
-            
-        if ($project) {
-            return new ProjectResource($project);
-        }
+        public function show($slug){
+        
+            $project = Project::where('slug',$slug)->first();
+                
+            if ($project) {
+                return new ProjectResource($project);
+            }
 
-        return response()->json([
-            'message' => 'Project not found'
-        ], 404);
-        }
-}
+            return response()->json([
+                'message' => 'Project not found'
+            ], 404);
+            }
+    }
