@@ -7,7 +7,7 @@
   
     <img
       v-if="project.main_image"
-      :src="project.main_image"
+      :src="`/storage/${project.main_image}`"
       alt="project image"
       class="w-full h-40 object-cover rounded-xl  rounded-b-none mb-3"
     />
