@@ -73,7 +73,7 @@ onUnmounted(() => {
 });
 
 const fixImagePath = (path: string) => {
-  return `/storage/${path.replace(/\\/g, "/")}`;
+  return `${path.replace(/\\/g, "/")}`;
 };
 </script>
 
