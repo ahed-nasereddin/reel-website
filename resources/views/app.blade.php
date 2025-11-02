@@ -9,9 +9,12 @@
 
       <link href="/src/style.css" rel="stylesheet">
 
-    @vite('resources/js/app.js') <!-- Load Vue app -->
+      @routes
+    @vite('resources/js/app.js')
+    @inertiaHead <!-- Load Vue app -->
 </head>
 <body class="bg-white">
-    <div id="app"></div>
+    
+    @inertia
 </body>
 </html>

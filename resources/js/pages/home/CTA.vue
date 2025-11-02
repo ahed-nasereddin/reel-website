@@ -31,6 +31,6 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // No logic needed
 </script>

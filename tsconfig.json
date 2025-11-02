@@ -15,6 +15,7 @@
       "@/*": ["resources/js/*"]
     }
   },
-  "include": ["resources/js/**/*"],
+  "include": ["resources/js/**/*", "resources/js/**/*.ts",
+    "resources/js/**/*.vue"],
   "exclude": ["node_modules", "public"]
 }

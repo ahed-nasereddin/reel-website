@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,13 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
-
-Route::get('/{any}', function () {
-    return view('app'); // your main Blade file that loads Vue
-})->where('any', '.*');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/Quotation', [QuotationController::class, 'index'])->name('Quotation.index');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

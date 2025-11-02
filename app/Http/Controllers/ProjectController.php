@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
+use Inertia\Inertia;
+
 class ProjectController extends Controller
 {
     public function latestprojects()
@@ -13,17 +15,18 @@ class ProjectController extends Controller
        return ProjectResource::collection($projects)->resolve();
     }
 
-    public function all(){
-        $projects=Project::paginate(6);
-         return ProjectResource::collection($projects)
-        ->additional([
-            'meta' => [
-                'current_page' => $projects->currentPage(),
-                'last_page'    => $projects->lastPage(),
-                'per_page'     => $projects->perPage(),
-                'total'        => $projects->total(),
-            ]
-        ]);
+    public function index(){
+         $projects = Project::paginate(6);
+
+    return Inertia::render('projects/Index', [
+        'projects' => ProjectResource::collection($projects)->resolve(),
+        'meta' => [
+            'current_page' => $projects->currentPage(),
+            'last_page'    => $projects->lastPage(),
+            'per_page'     => $projects->perPage(),
+            'total'        => $projects->total(),
+        ]
+    ]);
     
     
     }
@@ -34,7 +37,11 @@ class ProjectController extends Controller
             $project = Project::where('slug',$slug)->first();
                 
             if ($project) {
-                return new ProjectResource($project);
+                return Inertia::render('projects/ProjectDetails', [
+        'project' => (new ProjectResource($project))->resolve(),
+       
+    ]);
+                
             }
 
             return response()->json([

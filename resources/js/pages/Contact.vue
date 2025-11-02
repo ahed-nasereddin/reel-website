@@ -1,4 +1,29 @@
 <template>
+  <!-- Head meta -->
+    <Head>
+      <title>Contact Us | ReelQuip Films</title>
+      <meta
+        name="description"
+        content="Get in touch with ReelQuip Films for professional lighting and camera services."
+      />
+      <!-- Open Graph -->
+      <meta property="og:title" content="Contact Us | ReelQuip Films" />
+      <meta
+        property="og:description"
+        content="Get in touch with ReelQuip Films for professional lighting and camera services."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" :content="location" />
+      <meta property="og:image" content="/default-contact.jpg" />
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Contact Us | ReelQuip Films" />
+      <meta
+        name="twitter:description"
+        content="Get in touch with ReelQuip Films for professional lighting and camera services."
+      />
+      <meta name="twitter:image" content="/default-contact.jpg" />
+    </Head>
   <section class="py-12 mt-20 bg-gray-50">
     <div class="container mx-auto px-6 grid md:grid-cols-2 gap-8">
       <!-- Map -->
@@ -6,7 +31,7 @@
         <iframe
           class="w-full h-full"
           :src="`https://www.google.com/maps?q=${contact.coordinates.latitude},${contact.coordinates.longitude}&hl=es;z=14&output=embed`"
-          allowfullscreen=""
+          allowfullscreen
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
@@ -14,13 +39,11 @@
 
       <!-- Contact Info -->
       <div class="flex flex-col justify-center space-y-6" v-if="contact">
-        <!-- Address -->
         <div v-if="contact.address">
           <h3 class="text-xl font-semibold mb-1">Address</h3>
           <p class="text-gray-600">{{ contact.address }}</p>
         </div>
 
-        <!-- Phone -->
         <div v-if="contact.mobile_number">
           <h3 class="text-xl font-semibold mb-1">Phone</h3>
           <p class="text-gray-600">
@@ -30,7 +53,6 @@
           </p>
         </div>
 
-        <!-- WhatsApp -->
         <div v-if="contact.whatsapp">
           <h3 class="text-xl font-semibold mb-1">WhatsApp</h3>
           <p class="text-gray-600">
@@ -44,7 +66,6 @@
           </p>
         </div>
 
-        <!-- Social Media -->
         <div>
           <h3 class="text-xl font-semibold mb-2">Follow Us</h3>
           <div class="flex space-x-4">
@@ -64,38 +85,25 @@
             >
               <i class="fab fa-instagram fa-lg"></i>
             </a>
-         
           </div>
         </div>
       </div>
 
-      <!-- Loading / fallback -->
-      <p v-else class="text-gray-500 col-span-2">Loading contact info...</p>
+      
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import type { Contact } from "@/types";
+import type { Contact } from '@/types';
+import { Head } from '@inertiajs/vue3'
 
-const contact = ref<Contact | null>(null);
+import AppLayout from '@/layouts/AppLayout.vue';
+defineOptions({ layout: AppLayout });
+const location=window.location.href
+const props = defineProps<{
+  contact: Contact | null;
+}>();
 
-const fetchContact = async () => {
-  try {
-    const res = await axios.get("/api/contact");
-    contact.value = res.data.data; //API structure
-  } catch (error) {
-    console.error("Error fetching contact:", error);
-  }
-};
-
-onMounted(() => {
-  fetchContact();
-});
+const contact = props.contact;
 </script>
-
-<style scoped>
-/* تأكد أنك مركب Font Awesome أو أي أيقونات تريدها */
-</style>

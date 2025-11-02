@@ -1,14 +1,27 @@
 <template>
+  <Head>
+  <title>ReelQuip Films | Professional Lighting & Camera Services</title>
+  <meta name="description" content="Professional lighting and camera services for your projects." />
+  <meta property="og:title" content="ReelQuip Films" />
+  <meta property="og:description" content="Professional lighting and camera services for your projects." />
+  <meta property="og:image" content="/storage/images/about-us.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://reelquipfilms.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ReelQuip Films" />
+  <meta name="twitter:description" content="Professional lighting and camera services for your projects." />
+  <meta name="twitter:image" content="/storage/images/about-us.jpg" />
+</Head>
+
   <div>
-      <HeaderSlider v-if="sliders" :slides="sliders"/>
-      <Services v-if="services" :services="services" />
+      <HeaderSlider v-if="props.sliders" :slides="props.sliders"/>
+      <Services v-if="props.services" :services="props.services" />
       <About/>
-        <OurTeam  v-if="teamMembers.length>0" :teamMembers="teamMembers"/>
-      <LatestProjects v-if="latestProjects" :latestProjects="latestProjects"/>
+      <LatestProjects v-if="props.latestProjects" :latestProjects="props.latestProjects"/>
       <Testimonials/>
       <CTA/>
 
-      <WhatsappButton :number="contact?.whatsapp"/>
+      <WhatsappButton :number="props.contact?.whatsapp"/>
     
   </div>
 </template>
@@ -18,77 +31,65 @@ import HeaderSlider from '../../components/HeaderSlider.vue';
 import Services from './Services.vue';
 import LatestProjects from './LatestProjects.vue';
 import Testimonials from './Testimonials.vue';
-import About from './About.vue';
 import OurTeam from './OurTeam.vue';
 import CTA from './CTA.vue';
-import { useHead } from "@vueuse/head";
+import { Head } from '@inertiajs/vue3';
 
 import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 import  { Slider,Service,ProjectPreview,TeamMember, Contact } from "@/types";
 import WhatsappButton from '@/components/WhatsappButton.vue';
+import About from './About.vue';
 
-
+import AppLayout from '@/layouts/AppLayout.vue';
+defineOptions({ layout: AppLayout });
 const homeContent = ref({
   title: "ReelQuip Films",
   description: "Professional lighting and camera services for your projects.",
   image: "storage/images/about-us.jpg",
 });
-const sliders = ref<Slider[]>([]);
-const services = ref<Service[]>([]);
-const latestProjects=ref<ProjectPreview[]>([]);
-const teamMembers = ref<TeamMember[]>([]);
-const contact=ref<Contact>();
+const props=defineProps({
+ sliders : ref<Slider[]>([]),
+ services : ref<Service[]>([]),
+ latestProjects:ref<ProjectPreview[]>([]),
+ teamMembers : ref<TeamMember[]>([]),
+ contact:ref<Contact>()
+});
+
 // const testimonials = ref([]);
 // Watch the homeContent (in case it is fetched asynchronously)
 
-function setMetaTags(){
-  useHead({
-    title: homeContent.value.title,
-    meta: [
-      { name: "description", content: homeContent.value.description?.substring(0, 160) || "" },
-      { property: "og:title", content: homeContent.value.title },
-      { property: "og:description", content: homeContent.value.description?.substring(0, 160) || "" },
-      { property: "og:image", content: homeContent.value.image || "/logo.jpg" },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: window.location.href },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: homeContent.value.title },
-      { name: "twitter:description", content: homeContent.value.description?.substring(0, 160) || "" },
-      { name: "twitter:image", content: homeContent.value.image || "/logo.jpg" },
-    ],
-  });
-}
+
 onMounted(async () => {
-  try {
-    const sliderCacheKey = "sliders_cache";
-    const cachedSliders = localStorage.getItem(sliderCacheKey);
+  // try {
+  //   const sliderCacheKey = "sliders_cache";
+  //   const cachedSliders = localStorage.getItem(sliderCacheKey);
     
-    if (cachedSliders) {
-      sliders.value = JSON.parse(cachedSliders);
-    }
+  //   if (cachedSliders) {
+  //     sliders.value = JSON.parse(cachedSliders);
+  //   }
 
-    const [slidersRes, servicesRes, latestProjectsRes, teamMembersRes, contactRes] = await Promise.all([
-      axios.get("/api/sliders"),
-      axios.get("/api/services"),
-      axios.get("/api/latestprojects"),
-      axios.get("/api/team"),
-      axios.get("/api/contact"),
-    ]);
+  //   const [slidersRes, servicesRes, latestProjectsRes, teamMembersRes, contactRes] = await Promise.all([
+  //     axios.get("/api/sliders"),
+  //     axios.get("/api/services"),
+  //     axios.get("/api/latestprojects"),
+  //     axios.get("/api/team"),
+  //     axios.get("/api/contact"),
+  //   ]);
 
-    sliders.value = slidersRes.data;
-    localStorage.setItem(sliderCacheKey, JSON.stringify(slidersRes.data));
+  //   sliders.value = slidersRes.data;
+  //   localStorage.setItem(sliderCacheKey, JSON.stringify(slidersRes.data));
 
-    services.value = servicesRes.data.data;
-    latestProjects.value = latestProjectsRes.data;
-    teamMembers.value = teamMembersRes.data.data;
-    contact.value = contactRes.data.data;
+  //   services.value = servicesRes.data.data;
+  //   latestProjects.value = latestProjectsRes.data;
+  //   teamMembers.value = teamMembersRes.data.data;
+  //   contact.value = contactRes.data.data;
 
-  } catch (error) {
-    console.error("Error fetching home page data:", error);
-  }
+  // } catch (error) {
+  //   console.error("Error fetching home page data:", error);
+  // }
 
-  setMetaTags();
+
 });
 
 </script>

@@ -1,5 +1,23 @@
 <template>
+  <Head>
+    <title>{{ props.project.name }} | Lighting & Camera Services</title>
+    <meta name="description" :content="props.project.description?.substring(0, 160) || ''" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" :content="props.project.name" />
+    <meta property="og:description" :content="props.project.description?.substring(0, 160) || ''" />
+    <meta property="og:image" :content="props.project.main_image || '/default-project.jpg'" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" :content="'https://reelquipfilms.com'" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" :content="props.project.name" />
+    <meta name="twitter:description" :content="props.project.description?.substring(0, 160) || ''" />
+    <meta name="twitter:image" :content="props.project.main_image || '/default-project.jpg'" />
+  </Head>
   <section class="py-16 bg-gradient-to-t from-primary/30 via-accent to-primary/30">
+    
     <div v-if="project" class="container mx-auto px-6">
       <!-- Back button -->
       <button 
@@ -83,27 +101,31 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+
 import axios from "axios";
 import { useHead } from "@vueuse/head";
-
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Head } from '@inertiajs/vue3'
 
 // Lightbox
 import VueEasyLightbox from "vue-easy-lightbox";
 import { Project } from "@/types";
-
+import AppLayout from '@/layouts/AppLayout.vue';
+defineOptions({ layout: AppLayout });
 // Types
 
+const props = defineProps<{
+  project: Project;
+}>();
 
-const route = useRoute();
+
 const responseError = ref<string>("");
-const project = ref<Project | null>(null);
+const project = props.project;
 
 // Lightbox
 const showLightbox = ref(false);
@@ -113,33 +135,8 @@ function openLightbox(index: number) {
   showLightbox.value = true;
 }
 
-onMounted(async () => {
-  try {
-    const response = await axios.get(`/api/projects/${route.params.slug}`);
-    project.value = response.data.data;
-  } catch (error: any) {
-    responseError.value = error.message || "Failed to load project";
-  }
-});
 
 
-// 🔹 when project loads → set SEO meta tags
-watch(project, (p) => {
-  if (!p) return;
-  useHead({
-    title: `${p.name} | Lighting & Camera Services`,
-    meta: [
-      { name: "description", content: p.description?.substring(0, 160) || "" },
-      { property: "og:title", content: p.name },
-      { property: "og:description", content: p.description?.substring(0, 160) || "" },
-      { property: "og:image", content: p.main_image || "/default-project.jpg" },
-      { property: "og:type", content: "article" },
-      { property: "og:url", content: window.location.href },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: p.name },
-      { name: "twitter:description", content: p.description?.substring(0, 160) || "" },
-      { name: "twitter:image", content: p.main_image || "/default-project.jpg" },
-    ],
-  });
-   });
+
+
 </script>

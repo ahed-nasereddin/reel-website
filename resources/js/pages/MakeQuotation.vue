@@ -1,12 +1,36 @@
 <template>
-    <section class="py-16 mt-10 ">
+    <Head>
+      <title>Request a Quotation | ReelQuip Films</title>
+      <meta
+        name="description"
+        content="Request a quotation for professional lighting, camera, and crew services from ReelQuip Films."
+      />
+      <!-- Open Graph -->
+      <meta property="og:title" content="Request a Quotation | ReelQuip Films" />
+      <meta
+        property="og:description"
+        content="Request a quotation for professional lighting, camera, and crew services from ReelQuip Films."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" :content="location" />
+      <meta property="og:image" content="/default-quote.jpg" />
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Request a Quotation | ReelQuip Films" />
+      <meta
+        name="twitter:description"
+        content="Request a quotation for professional lighting, camera, and crew services from ReelQuip Films."
+      />
+      <meta name="twitter:image" content="/default-quote.jpg" />
+    </Head>
+    <section class="py-16 mt-14 ">
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-8">
                 Request a Quotation
             </h2>
             <form
                 @submit.prevent="submitQuotation"
-                class="bg-gradient-to-l from-primary/10 via-primary/10 to-primary-20 rounded-xl shadow-md p-8 space-y-6"
+                class=" rounded-xl shadow-md p-8 space-y-6"
             >
                 <!-- User Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -153,6 +177,10 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import axios from "axios";
+import { Head } from '@inertiajs/vue3'
+const location=window.location.href
+import AppLayout from '@/layouts/AppLayout.vue';
+defineOptions({ layout: AppLayout });
 const form = reactive({
     name: "",
     company_name: "",

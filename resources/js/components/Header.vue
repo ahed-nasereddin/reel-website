@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed, onBeforeUnmount, watch } from "vue";
 import { Motion } from "motion-v";
-import { useRoute } from "vue-router";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const isScrolled = ref(false);
 
 const handleScroll = () => {
-    isScrolled.value = window.scrollY > 50; // trigger after 50px scroll
+    isScrolled.value = window.scrollY > 50;
 };
 
 onMounted(() => {
@@ -18,15 +18,14 @@ onUnmounted(() => {
 });
 
 const open = ref(false);
-const route = useRoute();
+const page = usePage();
 
 
+const currentPath = computed(() => page.url);
 
 
+const isHome = computed(() => currentPath.value === "/");
 
-const isHome = computed(() => route.path === "/");
-
-// import { createRouter } from 'vue-router'
 function onEscKey(event: KeyboardEvent) {
     if (event.key === "Escape") {
         open.value = false;
@@ -37,38 +36,36 @@ const navItems = [
     { label: "Home", to: "/" },
     { label: "Contact", to: "/contact" },
     { label: "Projects", to: "/projects" },
-    { label: "Make a Quotation", to: "/makequotation" },
+    { label: "Make a Quotation", to: "/Quotation" },
 ];
 
 onMounted(() => window.addEventListener("keydown", onEscKey));
 onBeforeUnmount(() => window.removeEventListener("keydown", onEscKey));
-
 </script>
 
 <template>
     <header
         :class="[
-            // Base: different for home vs other pages
             isHome
-                ? 'absolute  text-white w-full top-0 left-0  px-2 flex justify-between items-center z-50 transition-colors duration-300'
-                : 'fixed z-10 bg-gradient-to-b from-accent via-accent  to-accent flex justify-between items-center px-2 mb-2 w-full text-secondary border-b-2 border-primary shadow-md',
-
-            // Scroll effect: only when on home
+                ? 'absolute text-white w-full top-0 left-0 px-2 flex justify-between items-center z-50 transition-colors duration-300'
+                : 'fixed z-10 bg-gradient-to-b from-accent via-accent to-accent flex justify-between items-center px-2 mb-2 w-full text-secondary border-b-2 border-primary shadow-md',
             isHome && isScrolled
-                ? 'bg-gradient-to-t from-accent via-accent to-accent fixed text-secondary shadow-md '
+                ? 'bg-gradient-to-t from-accent via-accent to-accent fixed text-secondary shadow-md'
                 : '',
         ]"
     >
-        <div class="flex justify-center ">
-            <img v-if="isHome && !isScrolled"
+        <div class="flex justify-center">
+            <img
+                v-if="isHome && !isScrolled"
                 src="/images/logo-white.png"
                 alt="ReelQuip Films Logo"
-                class="h-32  w-auto object-contain"
+                class="h-32 w-auto object-contain"
             />
-            <img v-else
+            <img
+                v-else
                 src="/images/logo-black.png"
                 alt="ReelQuip Films Logo"
-                class="h-28  w-auto object-contain"
+                class="h-28 w-auto object-contain"
             />
         </div>
 
@@ -80,26 +77,26 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onEscKey));
                 :whileHover="{ scale: 1.09 }"
                 :transition="{ type: 'spring', stiffness: 300 }"
             >
-                <router-link
-                    :to="item.to"
+                <Link
+                    :href="item.to"
                     :class="[
-                        'block hover:scale-105 p-2 font-bold hover:font-bold text-accent  hover:bg-accent hover:text-primary hover:rounded-xl cursor-pointer transition-all',
+                        'block hover:scale-105 p-2 font-bold hover:font-bold text-accent hover:bg-accent hover:text-primary hover:rounded-xl cursor-pointer transition-all',
                         {
                             'bg-accent text-primary rounded-xl':
-                                $route.path === item.to,
+                                currentPath === item.to,
                             'text-secondary hover:bg-accent hover:text-primary':
-                                isScrolled && isHome &&$route.path !== item.to ,
-                            'text-secondary  hover:text-primary':
-                                !isHome && $route.path !== item.to, 
-
+                                isScrolled && isHome && currentPath !== item.to,
+                            'text-secondary hover:text-primary':
+                                !isHome && currentPath !== item.to,
                         },
                     ]"
                 >
-                    {{item.label }}  
-                </router-link>
+                    {{ item.label }}
+                </Link>
             </Motion>
         </nav>
-        <!-- Mobile menu button -->
+
+        <!-- Mobile Menu -->
         <button
             @click="open = !open"
             aria-label="Toggle menu"
@@ -141,7 +138,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onEscKey));
         <!-- Sidebar Mobile Nav -->
         <transition name="slide-fade">
             <nav
-                v-if="open==true"
+                v-if="open"
                 class="fixed z-50 top-0 left-0 h-full w-64 bg-white border-l-2 border-primary p-6 space-y-6 shadow-lg overflow-auto"
                 role="dialog"
                 aria-modal="true"
@@ -156,19 +153,18 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onEscKey));
                 </button>
 
                 <nav class="grid space-y-6">
-                    <router-link
+                    <Link
                         v-for="(item, index) in navItems"
                         :key="index"
-                        :to="item.to"
-                        @click="open=false"
+                        :href="item.to"
+                        @click="open = false"
                         :class="{
-                            'bg-primary text-white rounded-xl':
-                                $route.path === item.to,
+                            'bg-primary text-white rounded-xl': currentPath === item.to,
                         }"
                         class="block text-primary hover:bg-primary hover:text-white hover:scale-105 p-2 hover:font-bold hover:rounded-xl cursor-pointer transition-all"
                     >
                         {{ item.label }}
-                    </router-link>
+                    </Link>
                 </nav>
             </nav>
         </transition>

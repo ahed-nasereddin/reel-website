@@ -16,32 +16,26 @@ use App\Models\Service;
 use App\Models\Project;
 use App\Models\TeamMember;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function sliders()
+    
+
+    public function index()
     {
-        Log::info('sliders:',[SlideResource::collection(Slide::all())->resolve()]);
-        return SlideResource::collection(Slide::all())->resolve();
+        
+         return Inertia::render('home/Index', [
+        'sliders' => SlideResource::collection(Slide::all())->resolve(),
+        'services' => ServiceResource::collection(Service::all())->resolve(),
+        'latestProjects' => Project::latest()->take(6)->get(),
+        'testimonials' => TestimonialResource::collection(Testimonial::where('checked', true)->get())->resolve(),
+ 
+       
+    ]);
     }
 
-    public function services()
-    {
-
-        return ServiceResource::collection(Service::all());
-    }
-
-      
-
-    public function team()
-    {
-        return TeamResource::collection(TeamMember::all());
-    }
-
-    public function testimonials()
-    {
-        return TestimonialResource::collection(Testimonial::where('checked',true)->get())->resolve();
-    }
+   
 
 
 

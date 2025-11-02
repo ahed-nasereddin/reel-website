@@ -10,12 +10,14 @@ use App\Models\Contact;
 use App\Mail\QuotationCreatedMail;
 use App\Mail\AdminQuotationNotification;
 use Illuminate\Support\Facades\Mail;
-
-
+use Inertia\Inertia;
 class QuotationController extends Controller
 {
     
 
+    public function index(){
+        return Inertia::render('MakeQuotation');
+    }
     public function store(Request $request)
     {
         log::info('days',[$request->no_days]);
