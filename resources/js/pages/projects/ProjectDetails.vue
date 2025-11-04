@@ -1,14 +1,7 @@
 <template>
   <Head>
     <title>{{ props.project.name }} | Lighting & Camera Services</title>
-    <meta name="description" :content="props.project.description?.substring(0, 160) || ''" />
     
-    <!-- Open Graph -->
-    <meta property="og:title" :content="props.project.name" />
-    <meta property="og:description" :content="props.project.description?.substring(0, 160) || ''" />
-    <meta property="og:image" :content="props.project.main_image || '/default-project.jpg'" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" :content="'https://reelquipfilms.com'" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
