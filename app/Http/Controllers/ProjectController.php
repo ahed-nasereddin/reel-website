@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -39,6 +40,12 @@ class ProjectController extends Controller
             if ($project) {
                 return Inertia::render('projects/ProjectDetails', [
         'project' => (new ProjectResource($project))->resolve(),
+         'meta' => [
+            'title' => $project->name . ' | Lighting & Camera Services',
+            'description' => Str::limit($project->description, 160),
+            'image' => asset($project->main_image ?? 'default-project.jpg'),
+            'url' => url()->current(),
+        ],
        
     ]);
                 

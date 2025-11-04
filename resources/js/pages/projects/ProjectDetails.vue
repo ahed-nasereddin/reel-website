@@ -52,6 +52,11 @@
               pagination
               space-between="10"
               slides-per-view="3"
+              :breakpoints="{
+                0: { slidesPerView: 1 },     // 📱 mobile
+                640: { slidesPerView: 2 },   // 📲 small tablets
+                1024: { slidesPerView: 3 }   // 💻 desktop
+              }"
               class="w-full"
             >
               <SwiperSlide v-for="(img, i) in project.images" :key="i">

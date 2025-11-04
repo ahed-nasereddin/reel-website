@@ -13,24 +13,26 @@
 
       <!-- Buttons -->
       <div class="flex flex-col md:flex-row justify-center gap-4">
-        <router-link
-          :to="'/contact'"
+        <Link
+          :href="'/contact'"
           class="border border-primary hover:bg-primary hover:text-black font-semibold px-8 py-3 rounded-2xl transition duration-300"
         >
           Contact Us
-        </router-link>
+        </Link>
 
-        <router-link
-          :to="'/makequotation'"
+        <Link
+          :href="'/Quotation'"
           class="border border-primary hover:bg-primary hover:text-black font-semibold px-8 py-3 rounded-2xl transition duration-300"
         >
           Make A Quotation
-        </router-link>
+        </Link>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+
 // No logic needed
 </script>
