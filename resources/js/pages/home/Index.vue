@@ -21,6 +21,7 @@
       <Testimonials/>
       <CTA/>
 
+      {{ props }}
       <WhatsappButton :number="props.contact?.whatsapp"/>
     
   </div>

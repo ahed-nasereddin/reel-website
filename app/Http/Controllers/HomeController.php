@@ -9,8 +9,9 @@ use App\Http\Resources\TeamResource;
 
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TestimonialResource;
-
+use App\Http\Resources\ContactResource;
 use App\Models\Testimonial;
+use App\Models\Contact;
 use App\Models\Slide;
 use App\Models\Service;
 use App\Models\Project;
@@ -31,6 +32,7 @@ class HomeController extends Controller
         'latestProjects' => ProjectResource::collection(
             Project::latest()->take(6)->get()
         )->resolve(),
+        'contact' => (new ContactResource(Contact::first()))->resolve(),
         'testimonials' => TestimonialResource::collection(Testimonial::where('checked', true)->get())->resolve(),
  
        

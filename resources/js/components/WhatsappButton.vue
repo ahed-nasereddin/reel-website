@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- باقي محتوى الصفحة -->
-
+   
+    
     <!-- Floating WhatsApp Button -->
     <a
        :href="`https://wa.me/${number}`"
