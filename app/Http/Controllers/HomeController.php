@@ -28,7 +28,9 @@ class HomeController extends Controller
          return Inertia::render('home/Index', [
         'sliders' => SlideResource::collection(Slide::all())->resolve(),
         'services' => ServiceResource::collection(Service::all())->resolve(),
-        'latestProjects' => Project::latest()->take(6)->get(),
+        'latestProjects' => ProjectResource::collection(
+            Project::latest()->take(6)->get()
+        )->resolve(),
         'testimonials' => TestimonialResource::collection(Testimonial::where('checked', true)->get())->resolve(),
  
        
