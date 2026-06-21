@@ -24,4 +24,17 @@ class Quotation extends Model
         'pickup_date' => 'datetime',
         'equipments'  => 'array',
     ];
+
+    public function getEquipmentsAttribute($value)
+    {
+        $decoded = is_string($value) ? json_decode($value, true) : $value;
+
+        if (function_exists('request') && request()?->is('admin/*')) {
+            return is_array($decoded)
+                ? json_encode($decoded, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                : $decoded;
+        }
+
+        return $decoded;
+    }
 }

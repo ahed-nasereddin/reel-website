@@ -39,6 +39,17 @@
 
 
 
+@php
+    $equipmentsValue = $dataTypeContent->{$row->field} ?? null;
+    if (is_string($equipmentsValue) && $equipmentsValue !== '') {
+        $equipments = json_decode($equipmentsValue, true) ?: [];
+    } elseif (is_array($equipmentsValue)) {
+        $equipments = $equipmentsValue;
+    } else {
+        $equipments = [['name' => '', 'count' => 1, 'note' => '']];
+    }
+@endphp
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const el = document.getElementById('voyager-equipments');
@@ -46,9 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
     new Vue({
         el,
         data: {
-            equipments: {!! $dataTypeContent->{$row->field} 
-                            ? json_encode(json_decode($dataTypeContent->{$row->field})) 
-                            : '[{"name": "", "count": 1, "note": ""}]' !!}
+            equipments: {!! json_encode($equipments) !!}
         },
         methods: {
             addItem() {

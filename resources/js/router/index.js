@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../pages/home/Index.vue';
-import Contact from '../pages/Contact.vue'
 import Projects from '../pages/projects/Index.vue';
 import AppLayout from '../layouts/AppLayout.vue';
 import ProjectDetails from '../pages/projects/ProjectDetails.vue';
@@ -11,7 +10,7 @@ const routes = [
     component: AppLayout,
     children: [
       { path: '', name: 'home', component: Home },
-      { path: '/contact', name: 'Contact US', component: Contact },
+      { path: '/contact', name: 'Contact US', component: Home },
       { path: '/projects', name: 'Projects', component: Projects },
       { path: 'makequotation', name: 'make-qutation', component: MakeQuotation },
       {

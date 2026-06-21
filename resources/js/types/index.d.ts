@@ -51,9 +51,8 @@ export interface ProjectPreview {
 export interface Testimonial {
   id: number;
   name: string;
-  position?: string;
-  company?: string;
-  content: string;
+  rating?: number;
+  message: string;
 }
 
 
@@ -75,3 +74,20 @@ export interface Contact {
   coordinates: Coordinates | null;
 }
 
+
+
+export interface SubCategory {
+  id: number;
+  name: string;
+  slug: string;
+  icon?: string;
+}
+
+export interface MainCategory {
+  id: number;
+  name: string;
+  slug: string;
+  icon?: string;
+  description?: string;
+  sub_categories: SubCategory[];
+}

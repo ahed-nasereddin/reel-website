@@ -14,15 +14,15 @@
       <!-- Buttons -->
       <div class="flex flex-col md:flex-row justify-center gap-4">
         <Link
-          :href="'/contact'"
-          class="border border-primary hover:bg-primary hover:text-black font-semibold px-8 py-3 rounded-2xl transition duration-300"
+          :href="'/#contact'"
+          class="border border-primary bg-primary text-white font-semibold px-8 py-3 rounded-2xl transition duration-300 hover:bg-primary/90"
         >
           Contact Us
         </Link>
 
         <Link
           :href="'/Quotation'"
-          class="border border-primary hover:bg-primary hover:text-black font-semibold px-8 py-3 rounded-2xl transition duration-300"
+          class="border border-primary hover:bg-primary hover:text-black bg-white font-semibold px-8 py-3 rounded-2xl transition duration-300"
         >
           Make A Quotation
         </Link>

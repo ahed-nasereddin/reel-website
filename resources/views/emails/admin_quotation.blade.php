@@ -30,7 +30,11 @@
                 <strong>Equipments:</strong>
                 <ul style="margin-top: 6px; padding-left: 20px;">
                     @foreach ($quotation->equipments as $eq)
-                        <li>{{ $eq['name'] }} - Quantity: {{ $eq['count'] }} @if($eq['note']) (Note: {{ $eq['note'] }}) @endif</li>
+                        <li style="margin-bottom: 8px; font-size: 15px; color: #374151;">
+                            <strong>{{ $eq['name'] }}</strong> · Quantity: {{ $eq['quantity'] }}
+                            @if(!empty($eq['brand'])) · Brand: {{ $eq['brand'] }}@endif
+                            @if(!empty($eq['url'])) · <a href="{{ $eq['url'] }}">View item</a>@endif
+                        </li>
                     @endforeach
                 </ul>
             </div>

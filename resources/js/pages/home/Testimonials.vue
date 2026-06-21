@@ -3,7 +3,7 @@
     <div class="mx-auto text-center">
       <!-- Section Title -->
       <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-10">
-        What Our Clients Say
+        What Our Clients Say  
       </h2>
 
       <!-- Swiper Slider -->
@@ -20,22 +20,23 @@
     >
 
    
-
+       
         <swiper-slide v-for="(testimonial, i) in testimonials" :key="i" class="max-w-md px-4">
-          <div
-            class="shadow-lg border border-primary rounded-2xl p-0 flex flex-col items-center text-center transition-transform transform hover:-translate-y-2 hover:shadow-xl">
-            <p class="text-accent  font-bold bg-primary min-h-20 rounded-t-2xl italic mb-1 leading-relaxed p-4 w-full"
-              v-html="testimonial.content"></p>
-
+          <div class="shadow-lg rounded-2xl p-6 bg-white flex flex-col justify-between h-full transition-transform hover:-translate-y-2 hover:shadow-xl">
             <div>
-              <h3 class="mt-4 text-xl w-auto py-1 px-2 text-primary w rounded-lg font-bold">
-                {{ testimonial.name }}
-              </h3>
-              <p class="text-secondary font-semibold text-md">
-                {{ testimonial.position }}
-                <span v-if="testimonial.company">
-                  • {{ testimonial.company }}</span>
-              </p>
+              <p class="text-slate-700 text-base leading-relaxed mb-4" v-html="testimonial.message"></p>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div>
+                <h3 class="mt-0 text-lg font-semibold text-slate-900">{{ testimonial.name }}</h3>
+              </div>
+
+              <div class="flex items-center gap-1">
+                <svg v-for="n in 5" :key="n" :class="n <= (testimonial.rating ?? 5) ? 'w-4 h-4 text-yellow-400' : 'w-4 h-4 text-slate-200'" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.95a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.371 2.448a1 1 0 00-.364 1.118l1.286 3.95c.3.921-.755 1.688-1.54 1.118L10 15.347l-3.371 2.448c-.784.57-1.839-.197-1.54-1.118l1.286-3.95a1 1 0 00-.364-1.118L2.64 9.377c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.95z"/>
+                </svg>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -44,52 +45,9 @@
 
       </swiper>
 
-      <!-- Add Testimonial Button -->
-      <!-- <div class="mt-8 flex justify-center">
-        <button
-          class="border border-primary text-primary font-semibold px-8 py-3 rounded-2xl hover:bg-primary hover:text-accent transition duration-300"
-          @click="showModal = true">
-          Add Testimonial
-        </button>
-      </div> -->
+   
 
-      <!-- Modal -->
-      <div v-if="showModal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50 px-4">
-        <div class="bg-black text-white rounded-2xl shadow-lg w-full max-w-md p-6 relative">
-          <button @click="showModal = false"
-            class="absolute top-3 right-3 text-primary hover:text-white text-lg font-bold">
-            &times;
-          </button>
-
-          <h2 class="text-2xl font-semibold mb-4 text-primary text-center">
-            Add Testimonial
-          </h2>
-
-          <form @submit.prevent="submitTestimonial" class="space-y-4">
-            <input v-model="newTestimonial.name" placeholder="Name"
-              class="w-full px-4 py-2 border border-primary rounded-lg focus:ring-2 focus:ring-primary focus:outline-none text-primary"
-              required />
-            <input v-model="newTestimonial.position" placeholder="Position"
-              class="w-full px-4 py-2 border border-primary rounded-lg focus:ring-2 focus:ring-primary focus:outline-none text-primary" />
-            <input v-model="newTestimonial.company" placeholder="Company"
-              class="w-full px-4 py-2 border border-primary rounded-lg focus:ring-2 focus:ring-primary focus:outline-none text-primary" />
-            <textarea v-model="newTestimonial.content" placeholder="Testimonial" rows="4"
-              class="w-full px-4 py-2 border border-primary rounded-lg focus:ring-2 focus:ring-primary focus:outline-none text-primary resize-none"
-              required></textarea>
-
-            <div class="flex justify-end gap-2">
-              <button type="submit"
-                class="bg-primary text-black px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">
-                Submit
-              </button>
-              <button type="button" @click="showModal = false"
-                class="bg-white text-black px-4 py-2 rounded-lg hover:bg-primary hover:text-black transition">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      
     </div>
   </section>
 </template>
@@ -104,14 +62,17 @@ import { defineComponent } from 'vue'
   import 'swiper/css'
   import 'swiper/css/pagination'
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import type { Testimonial } from "@/types";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-const testimonials = ref<Testimonial[]>([]);
-const showModal = ref(false);
 
+const props = defineProps<{
+  testimonials?: Testimonial[];
+}>();
+
+const testimonials = computed(() => props.testimonials ?? []);
 defineComponent({
     name: 'swiper-example-3d-coverflow',
     title: '3D Coverflow effect',
@@ -127,42 +88,10 @@ defineComponent({
     }
   })
 
-const fetchTestimonials = async () => {
-  const res = await axios.get("/api/testimonials");
-  console.log(res);
-  testimonials.value = res.data;
-};
-const newTestimonial = ref<Testimonial>({
-  id: 0,
-  name: "",
-  position: "",
-  company: "",
-  content: "",
-});
 
-const submitTestimonial = async () => {
-  const formData = new FormData();
-  formData.append("name", newTestimonial.value.name);
-  formData.append("position", newTestimonial.value.position || "");
-  formData.append("company", newTestimonial.value.company || "");
-  formData.append("content", newTestimonial.value.content);
 
-  console.log("submit", formData);
-  await axios.post("/api/testimonials", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
 
-  showModal.value = false;
-  // ✅ Show success toast
-  toast.success("Thank you! Your testimonial was submitted successfully ", {
-    autoClose: 3000,
-    position: "top-right",
-    theme: "colored",
-  });
-  fetchTestimonials();
-};
 
-onMounted(fetchTestimonials);
 
 onMounted(() => {
   const jsonLd = {
@@ -176,7 +105,7 @@ onMounted(() => {
     },
     review: testimonials.value.map((t) => ({
       "@type": "Review",
-      reviewBody: t.content,
+      reviewBody: t.message || t.content,
       author: {
         "@type": "Person",
         name: t.name,

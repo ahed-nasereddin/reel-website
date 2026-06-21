@@ -27,6 +27,18 @@
             <p style="margin-bottom: 12px; font-size: 16px;"><strong>Pickup Date:</strong> {{ $quotation->pickup_date }}</p>
             <p style="margin-bottom: 12px; font-size: 16px;"><strong>Location:</strong> {{ $quotation->location }}</p>
 
+            <div style="margin: 20px 0;">
+                <strong>Requested equipment</strong>
+                <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc;">
+                    @foreach ($quotation->equipments as $equipment)
+                        <li style="margin-bottom: 8px; font-size: 15px; color: #374151;">
+                            <strong>{{ $equipment['name'] }}</strong> · Quantity: {{ $equipment['quantity'] }}
+                            @if(!empty($equipment['brand'])) · Brand: {{ $equipment['brand'] }}@endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
             <p style="margin-top: 20px; margin-bottom: 12px; font-size: 16px;">
                 We will review your request and contact you soon.
             </p>
