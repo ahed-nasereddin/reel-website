@@ -63,8 +63,8 @@
             <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition">
               {{ mainCategory.name }}
             </h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-4">
-              {{ mainCategory.description || `Explore our ${mainCategory.name} equipment` }}
+            <p class="text-sm text-gray-600 line-clamp-2 mb-4" v-html=" mainCategory.description || `Explore our ${mainCategory.name} equipment`">
+             
             </p>
 
             <!-- View All Button -->
