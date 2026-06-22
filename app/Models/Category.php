@@ -12,6 +12,7 @@ class Category extends Model
         'name',
         'slug',
         'description',
+        'icon',
         'main_category_id',
         'seo_description',
         'seo_keywords',

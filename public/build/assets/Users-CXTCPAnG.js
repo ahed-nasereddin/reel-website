@@ -1,1 +1,0 @@
-import{_ as r,c as o,o as t,b as s}from"./app-BRq0yuOk.js";const n={name:"Users"};function a(c,e,l,p,u,d){return t(),o("div",null,[...e[0]||(e[0]=[s("h2",{class:"text-2xl font-bold"},"Users",-1),s("p",null,"Manage your users here.",-1)])])}const _=r(n,[["render",a]]);export{_ as default};

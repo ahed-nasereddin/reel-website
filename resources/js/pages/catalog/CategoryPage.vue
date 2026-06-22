@@ -24,7 +24,7 @@
           <div>
             <p class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Equipment</p>
             <h1 class="mt-3 text-4xl font-bold text-primary">{{ pageTitle }}</h1>
-            <p class="mt-3 max-w-3xl text-lg text-secondary">{{ pageSubtitle }}</p>
+            <p class="mt-3 max-w-3xl text-lg text-secondary" v-html="pageSubtitle "></p>
           </div>
 
           <div class="flex flex-wrap gap-3">

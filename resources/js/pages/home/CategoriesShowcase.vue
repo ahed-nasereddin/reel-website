@@ -45,10 +45,12 @@
           :key="mainCategory.id"
           class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-primary/5"
         >
+        
           <!-- Main Category Header -->
           <div class="p-6 border-b border-slate-100">
             <!-- Icon -->
             <div class="mb-4">
+             
               <div v-if="mainCategory.icon" class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center">
                 <img
                   :src="`/storage/${mainCategory.icon}`"

@@ -16,6 +16,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->description,
+            'icon' => $this->icon,
             'url' => url('/equipment/' . ($this->mainCategory->slug ?? 'equipment') . '/' . $this->slug),
             'main_category' => new MainCategoryResource($this->whenLoaded('mainCategory')),
             'sub_categories' => SubCategoryResource::collection($this->whenLoaded('subCategories')),
